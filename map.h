@@ -8,9 +8,7 @@
   * must also be placed in the .h file.
   * 
   * @author Prof. Joe Hummel
-  * @author ?
-  * @author ?
-  * @author ?
+  * @author Fay Ma
   * @note Northwestern University
  */
 #pragma once
@@ -59,9 +57,7 @@ public:
   //
   map(const map& other)
   {
-    // 
-    // TODO:
-    //
+   _copy(other.Root);
   }
 
   //
@@ -69,9 +65,7 @@ public:
   //
   ~map()
   {
-    // 
-    // TODO:
-    //
+    _delete(this->Root);
   }
 
   //
@@ -114,11 +108,17 @@ public:
     ValueT default_value = ValueT();
     NODE* newNode = new NODE(key, default_value);
 
+    while (prev == nullptr) {
+      this->Root = newNode;
+      Size++;
+      return newNode->Pair.second;
+    }
+
     if (key < prev->Pair.first)
       prev->Left = newNode;
     else
       prev->Right = newNode;
-
+    
     Size++;
 
     //
@@ -148,6 +148,28 @@ private:
       _print(cur->Right);
     }
   }
+
+  void _delete(NODE* cur)
+  {
+    if (cur == nullptr)
+      return;
+    else {
+      _delete(cur->Left);
+      _delete(cur->Right);
+      delete cur;
+    }
+  }
+
+  void _copy(NODE* cur)
+  {
+    if (cur == nullptr)
+      return;
+    (*this)[cur->Pair.first] = cur->Pair.second;
+    _copy(cur->Left);
+    _copy(cur->Right);
+  }
+  
+
 
 public:
   void print()
