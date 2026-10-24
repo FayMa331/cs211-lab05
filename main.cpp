@@ -19,7 +19,7 @@ using std::cin;
 using std::endl;
 
 
-void print_map(map<string,int>& M)
+void print_map(map<string,int> M)
 {
   M.print();
 }

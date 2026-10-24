@@ -56,6 +56,7 @@ public:
   // copy constructor:
   //
   map(const map& other)
+    : Root(nullptr), Size(0)
   {
    _copy(other.Root);
   }
